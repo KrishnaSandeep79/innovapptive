@@ -1,0 +1,70 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      #map {
+        height: 50%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style></head>
+    <script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUA7HInId-aYWjxMz_U1MjeyCTPDlV_5I">
+    
+    </script>
+  <body>
+  <div id="map"></div>
+  <p>Click the button to get your coordinates.</p>
+
+  <button onclick="initMap()">check</button>
+
+  <p id="lat"></p>
+  <p id="long"></p>
+  <p id="demo"></p>
+  <script>
+  function initMap() {
+    if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+    // Create the map.
+    console.log("hi");
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 100,
+      center: pos,
+      mapTypeId: 'terrain'
+    });
+    var cityCircle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        center: pos,
+        radius: 5
+      });
+  }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+      });
+    function arePointsNear(checkPoint, centerPoint, km) { 
+    var ky = 40000 / 360;
+    var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    console.log(Math.sqrt(dx * dx + dy * dy));
+    return Math.sqrt(dx * dx + dy * dy) <= km;
+    }
+    console.log(arePointsNear({lat:17.436744,lng:78.513179},{lat:17.436746,lng:78.513205},0.008));
+    }
+  }
+  </script>
+  </body>
+  </html>

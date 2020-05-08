@@ -1,0 +1,51 @@
+<html>
+    <head>
+  <title>Custom Markers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <style>
+    #map {
+      height: 50%;
+    }
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(
+        document.getElementById('map'),
+        { center: new google.maps.LatLng(17.456319699999998,78.3728344), zoom: 16 });
+      var a = [];
+            <% for (var i = 0; i < d.length; i++) { %>
+        a.push({ lat:<%= d[i].lat %>, lng:<%= d[i].lng %>});
+            <% } %>
+          var flightPath = new google.maps.Polyline({
+          path: a,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+      flightPath.setMap(map);
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUA7HInId-aYWjxMz_U1MjeyCTPDlV_5I&callback=initMap">
+    </script>
+</body>
+
+</html>
+    <body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="/assets/sample.js"></script>
+    <button id="stop">stop</button><br>
+    </body>
+</html>
